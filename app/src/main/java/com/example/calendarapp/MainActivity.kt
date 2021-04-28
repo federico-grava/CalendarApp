@@ -3,12 +3,11 @@ package com.example.calendarapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.calendarapp.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,11 +23,25 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val arr = createEventsList()
+
+        //val bundle = Bundle()
+        val eventsListFrag = EventsListFragment()
+        //fragobj.arguments = bundle
+
+        val fragmentManager = supportFragmentManager
+        //val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentManager.commit {
+            setReorderingAllowed(true)
+            replace(R.id.fragment_container_events_list,eventsListFrag)
+        }
+
+
+
+        //val arr = createEventsList()
 
         with(binding) {
            //testo.text="hey"
-           myRecyclerView.adapter = MyAdapter(arr)
+          /* myRecyclerView.adapter = MyAdapter(arr)
            myRecyclerView.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
 
             buttset.setOnClickListener {
@@ -50,6 +63,10 @@ class MainActivity : AppCompatActivity() {
 
 
             }
+
+            buttget.setOnClickListener {
+
+            } */
 
            /*buttget.setOnClickListener {
                var t : String
@@ -80,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun createEventsList() : ArrayList<Event>{
+/*    private fun createEventsList() : ArrayList<Event>{
 
 
         //To do: get events from database, create list from today (or first event) to last event
@@ -95,5 +112,5 @@ class MainActivity : AppCompatActivity() {
 
         return arrayListOf(Event(1,"titolo1", "ciao1", dateFormat.format(e1.time), dateFormat.format(e2.time), timeFormat.format(e1.time), timeFormat.format(e2.time)),
                            Event(1,"titolo1", "ciao1", dateFormat.format(e3.time), dateFormat.format(e4.time), timeFormat.format(e2.time), timeFormat.format(e4.time)))
-    }
+    }*/
 }
