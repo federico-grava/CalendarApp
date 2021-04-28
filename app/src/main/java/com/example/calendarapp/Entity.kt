@@ -15,7 +15,7 @@ data class User(
 
 @Entity
 data class Event(
-        @PrimaryKey val uid : Int,
+        @PrimaryKey val event_id : Int,
         @ColumnInfo(name = "title") val title: String?,
         @ColumnInfo(name = "note") val note: String?,
         @ColumnInfo(name = "startDate") val startDate: String,

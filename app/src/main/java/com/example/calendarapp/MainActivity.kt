@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat
 
 class MainActivity : AppCompatActivity() {
     private var dateFormat = SimpleDateFormat("dd-MM-yyyy")
-    private var timeFormat = SimpleDateFormat("hh:mm")
+    private var timeFormat = SimpleDateFormat("kk:mm")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

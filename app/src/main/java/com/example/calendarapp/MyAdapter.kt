@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.calendarapp.databinding.RecyclerElementBinding
 import java.text.SimpleDateFormat
 
-class MyAdapter(private var mData : ArrayList<Event>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class MyAdapter(private var mData : List<Event>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     class MyViewHolder(val binding : RecyclerElementBinding) : RecyclerView.ViewHolder(binding.root)
 

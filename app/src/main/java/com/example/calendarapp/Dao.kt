@@ -32,9 +32,12 @@ interface EventDao {
     @Query("SELECT * FROM event")
     suspend fun getAll(): List<Event>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(vararg event: Event)
+    @Query("SELECT MAX(event_id) FROM event")
+    suspend fun getMaxId(): Int
+
+    //@Insert(onConflict = OnConflictStrategy.REPLACE)
+    //suspend fun insertAll(vararg event: Event)
 
     @Delete
-    fun delete(event: Event)
+    suspend fun delete(event: Event)
 }

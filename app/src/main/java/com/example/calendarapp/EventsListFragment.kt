@@ -9,17 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.calendarapp.databinding.FragmentEventsListBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class EventsListFragment : Fragment(R.layout.fragment_events_list){
     private var dateFormat = SimpleDateFormat("dd-MM-yyyy")
-    private var timeFormat = SimpleDateFormat("hh:mm")
+    private var timeFormat = SimpleDateFormat("kk:mm")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,12 +32,15 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arr = createEventsList()
-
+        dateFormat.isLenient = false
+        timeFormat.isLenient = false
         val binding = FragmentEventsListBinding.bind(view)
+
         with(binding) {
             //testo.text="hey"
-            myRecyclerView.adapter = MyAdapter(arr)
+
+            fetchEventsList(myRecyclerView)
+            //myRecyclerView.adapter = MyAdapter(eventsList)
             myRecyclerView.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
 
             buttset.setOnClickListener {
@@ -51,7 +54,7 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
                 }
                 GlobalScope.launch {
 
-                    val db = com.example.calendarapp.DatabaseAndroid.getDatabase(requireContext())
+                    val db = DatabaseAndroid.getDatabase(requireContext())
                     val dao = db.eventDao()
 
                     dao.insert(Event(2,"pulsanteClick", "forse", s, "12-12-2021", "13:56", "14:30"))
@@ -74,10 +77,16 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
         }
     }
 
-    private fun createEventsList() : ArrayList<Event>{
+    private fun fetchEventsList(recyclerView: RecyclerView){
+        GlobalScope.launch {
 
+            val db = DatabaseAndroid.getDatabase(requireContext())
+            val dao = db.eventDao()
+            recyclerView.adapter = MyAdapter(dao.getAll())
+        }
 
         //To do: get events from database, create list from today (or first event) to last event
+        /*
         val e1 = Calendar.getInstance()
         val e2 = Calendar.getInstance()
         val e3 = Calendar.getInstance()
@@ -89,6 +98,7 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
 
         return arrayListOf(Event(1,"titolo1", "ciao1", dateFormat.format(e1.time), dateFormat.format(e2.time), timeFormat.format(e1.time), timeFormat.format(e2.time)),
             Event(1,"titolo1", "ciao1", dateFormat.format(e3.time), dateFormat.format(e4.time), timeFormat.format(e2.time), timeFormat.format(e4.time)))
+    */
     }
 
 }

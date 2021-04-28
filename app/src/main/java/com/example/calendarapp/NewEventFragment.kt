@@ -21,7 +21,7 @@ import java.util.*
 
 class NewEventFragment : Fragment(R.layout.fragment_new_event){
     private var dateFormat = SimpleDateFormat("dd-MM-yyyy")
-    private var timeFormat = SimpleDateFormat("hh:mm")
+    private var timeFormat = SimpleDateFormat("kk:mm")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -119,7 +119,8 @@ class NewEventFragment : Fragment(R.layout.fragment_new_event){
                     val db = DatabaseAndroid.getDatabase(requireContext())
                     val dao = db.eventDao()
 
-                    dao.insert(Event(2, title, note, dateStart, dateEnd, timeStart, timeEnd))
+                    dao.insert(Event(1, title, note, dateFormat.format(dStart), dateFormat.format(dEnd),
+                                                             timeFormat.format(tStart), timeFormat.format(tEnd)))
                 }
 
 
