@@ -2,16 +2,9 @@ package com.example.calendarapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.fragment.app.commit
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.calendarapp.databinding.ActivityMainBinding
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private var dateFormat = SimpleDateFormat("dd-MM-yyyy")
@@ -32,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         //val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.fragment_container_events_list,eventsListFrag)
+            replace(R.id.fragment_container_view, eventsListFrag)
         }
 
 

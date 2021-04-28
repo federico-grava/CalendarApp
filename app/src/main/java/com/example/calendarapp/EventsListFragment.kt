@@ -1,17 +1,15 @@
 package com.example.calendarapp
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.calendarapp.databinding.FragmentEventsListBinding
-import com.example.calendarapp.databinding.FragmentNewEventBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.ParseException
@@ -28,9 +26,15 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentEventsListBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val arr = createEventsList()
 
+        val binding = FragmentEventsListBinding.bind(view)
         with(binding) {
             //testo.text="hey"
             myRecyclerView.adapter = MyAdapter(arr)
@@ -47,7 +51,7 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
                 }
                 GlobalScope.launch {
 
-                    val db = DatabaseAndroid.getDatabase(requireContext())
+                    val db = com.example.calendarapp.DatabaseAndroid.getDatabase(requireContext())
                     val dao = db.eventDao()
 
                     dao.insert(Event(2,"pulsanteClick", "forse", s, "12-12-2021", "13:56", "14:30"))
@@ -57,14 +61,19 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
             }
 
             buttget.setOnClickListener {
+                val fm = parentFragmentManager
 
+                fm.commit {
+                    setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out, android.R.animator.fade_in, android.R.animator.fade_out)
+                    replace<NewEventFragment>(R.id.fragment_container_view)
+                    setReorderingAllowed(true)
+                    addToBackStack("EventsList") // name can be null
+                }
             }
 
-
         }
+    }
 
-        return binding.root
-}
     private fun createEventsList() : ArrayList<Event>{
 
 
