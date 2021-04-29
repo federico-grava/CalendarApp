@@ -22,13 +22,13 @@
         >
 
         <TextView
-            android:id="@+id/titolo"
+            android:id="@+id/rec_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_marginTop="6dp"
             android:fontFamily="sans-serif"
-            android:text="titolo_nota"
+            android:text="title"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -36,26 +36,38 @@
             />
 
         <TextView
-            android:id="@+id/data"
+            android:id="@+id/rec_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="6dp"
             android:layout_marginTop="6dp"
             android:fontFamily="monospace"
-            android:text="data_nota"
+            android:text="date"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/anteprima"
+            android:id="@+id/rec_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:layout_marginTop="6dp"
+            android:fontFamily="monospace"
+            android:text="time"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rec_date" />
+
+        <TextView
+            android:id="@+id/rec_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_marginEnd="6dp"
             android:layout_marginBottom="6dp"
             android:fontFamily="serif"
-            android:text="anteprima_nota"
+            android:text="note preview"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,11 +45,11 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
 
             val placeholderList = mutableListOf(Event(0,"loading", "loading", "loading", "loading", "loading", "loading"))
 
-            val adapter = MyAdapter(placeholderList)
+            val adapter = MyAdapter(placeholderList, parentFragmentManager)
             myRecyclerView.adapter = adapter
             myRecyclerView.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
 
-            fetchEventsList(myRecyclerView)
+            fetchEventsList(myRecyclerView, parentFragmentManager)
 
             buttset.setOnClickListener {
                 //myRecyclerView.adapter = MyAdapter(listOf(Event(1,"titolo1", "ciao1", "dateFo", "er", "df", "sdfd")))
@@ -71,7 +72,7 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
 
             }
 
-            buttget.setOnClickListener {
+            fab.setOnClickListener {
                 val fm = parentFragmentManager
 
                 fm.commit {
@@ -85,7 +86,7 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
         }
     }
 
-    private fun fetchEventsList(rec: RecyclerView){
+    private fun fetchEventsList(rec: RecyclerView, fm : FragmentManager){
         GlobalScope.launch(Dispatchers.Main) {
 
             val db = DatabaseAndroid.getDatabase(requireContext())
@@ -99,7 +100,7 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
                 list.removeAt(0)
                 list.sort()
             }
-            rec.adapter = MyAdapter(list)
+            rec.adapter = MyAdapter(list, fm)
             //try{adapter.notifyDataSetChanged()} //Cannot call this method while RecyclerView is computing a layout or scrolling
             //catch (e:Exception){}               //this doesn't work
         }

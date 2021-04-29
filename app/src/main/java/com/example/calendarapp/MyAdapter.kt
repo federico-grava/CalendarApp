@@ -3,11 +3,14 @@ package com.example.calendarapp
 import android.annotation.SuppressLint //remove this later
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.recyclerview.widget.RecyclerView
 import com.example.calendarapp.databinding.RecyclerElementBinding
 import java.text.SimpleDateFormat
 
-class MyAdapter(var mData : MutableList<Event>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class MyAdapter(var mData : MutableList<Event>, var fm : FragmentManager) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     /*init {
         if(mData.isEmpty()){
@@ -21,18 +24,29 @@ class MyAdapter(var mData : MutableList<Event>) : RecyclerView.Adapter<MyAdapter
         return MyViewHolder(RecyclerElementBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    @SuppressLint("SetTextI18n") //remove this later
+    //@SuppressLint("SetTextI18n") //remove this later
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
-        //var dateFormat = SimpleDateFormat("dd.mm.yyyy")
 
         with(holder.binding) {
 
-            titolo.text = "titolo: ${mData[position].title}"
-            data.text = "data: ${mData[position].startDate}"
-            anteprima.text = "anteprima: ${mData[position].note}"
+            recTitle.text = mData[position].title
+            recDate.text = mData[position].startDate
+            recTime.text = mData[position].startTime
+            recNote.text = (mData[position].note?: "").take(50)
 
+            root.setOnClickListener {
+                val event = EventDetailsFragment(mData[position].title,
+                                "Start: " + mData[position].startDate + " " + mData[position].startTime,
+                                "End: " + mData[position].endDate + " " + mData[position].endTime,
+                                        mData[position].note)
 
+                fm.commit {
+                    setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out, android.R.animator.fade_in, android.R.animator.fade_out)
+                    replace(R.id.fragment_container_view, event)
+                    setReorderingAllowed(true)
+                    addToBackStack("EventsList")
+                }
+            }
         }
 
     }
