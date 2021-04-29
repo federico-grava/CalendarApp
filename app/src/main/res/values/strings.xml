@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">CalendarApp</string>
     <string name="add_title_optional">Add title (optional)</string>
+    <string name="title_hint">Title</string>
+    <string name="add_note_optional">Add note (optional)</string>
+    <string name="note_hint">Note</string>
+    <string name="add_start_date">Add start date</string>
+    <string name="dd_mm_yyyy">dd-MM-yyyy</string>
+    <string name="add_start_time">Add start time</string>
+    <string name="hh_mm">hh:mm</string>
+    <string name="add_end_date">Add end date</string>
+    <string name="add_end_time">Add end time</string>
+    <string name="add_event">Create event</string>
 </resources>
