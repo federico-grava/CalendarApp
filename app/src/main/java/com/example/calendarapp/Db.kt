@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Event::class], version = 1, exportSchema = false)
 abstract class DatabaseAndroid : RoomDatabase() {
-    //abstract fun userDao(): UserDao
     abstract fun eventDao(): EventDao
 
     companion object {

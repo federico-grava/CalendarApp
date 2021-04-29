@@ -1,13 +1,11 @@
 package com.example.calendarapp
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -37,18 +35,3 @@ class EventOptionsFragment(val fm : FragmentManager, val toDelete: Event): Fragm
         dialog.show()
     }
 }
-
-
-
-
-/*val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(mContext)
-       builder.setCancelable(true)
-       builder.setTitle("Title")
-       builder.setMessage("Message")
-       builder.setPositiveButton("Confirm",
-           DialogInterface.OnClickListener { dialog, which -> })
-       builder.setNegativeButton(android.R.string.cancel,
-           DialogInterface.OnClickListener { dialog, which -> })
-
-       val dialog: AlertDialog = builder.create()
-       dialog.show()*/

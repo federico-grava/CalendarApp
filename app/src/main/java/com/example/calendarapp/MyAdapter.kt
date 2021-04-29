@@ -1,24 +1,13 @@
 package com.example.calendarapp
 
-import android.annotation.SuppressLint //remove this later
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.recyclerview.widget.RecyclerView
 import com.example.calendarapp.databinding.RecyclerElementBinding
-import java.text.SimpleDateFormat
 
 class MyAdapter(var mData : MutableList<Event>, var fm : FragmentManager) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
-
-    /*init {
-        if(mData.isEmpty()){
-            mData.add(0, Event(0,"empty", "empty", "0", "0", "0", "0"))
-        }
-    }*/
 
     class MyViewHolder(val binding : RecyclerElementBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -26,7 +15,6 @@ class MyAdapter(var mData : MutableList<Event>, var fm : FragmentManager) : Recy
         return MyViewHolder(RecyclerElementBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    //@SuppressLint("SetTextI18n") //remove this later
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         with(holder.binding) {
