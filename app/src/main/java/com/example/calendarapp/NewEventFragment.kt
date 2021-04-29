@@ -123,7 +123,7 @@ class NewEventFragment : Fragment(R.layout.fragment_new_event){
                                                              timeFormat.format(tStart), timeFormat.format(tEnd)))
                 }
 
-
+                Toast.makeText(requireContext(), "Event created", Toast.LENGTH_SHORT).show()
                 parentFragmentManager.popBackStack()
 
             }

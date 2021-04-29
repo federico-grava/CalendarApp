@@ -3,6 +3,8 @@ package com.example.calendarapp
 import android.annotation.SuppressLint //remove this later
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -46,6 +48,16 @@ class MyAdapter(var mData : MutableList<Event>, var fm : FragmentManager) : Recy
                     setReorderingAllowed(true)
                     addToBackStack("EventsList")
                 }
+            }
+
+            root.setOnLongClickListener {
+                fm.commit {
+                    setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out, android.R.animator.fade_in, android.R.animator.fade_out)
+                    replace(R.id.fragment_container_view_2, EventOptionsFragment(fm, mData[position]))
+                    setReorderingAllowed(true)
+                    addToBackStack("EventsList")
+                }
+                true
             }
         }
 
