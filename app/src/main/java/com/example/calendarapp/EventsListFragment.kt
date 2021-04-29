@@ -48,7 +48,7 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
             myRecyclerView.adapter = adapter
             myRecyclerView.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
 
-            fetchEventsList(adapter)
+            fetchEventsList(myRecyclerView)
 
             buttset.setOnClickListener {
                 //myRecyclerView.adapter = MyAdapter(listOf(Event(1,"titolo1", "ciao1", "dateFo", "er", "df", "sdfd")))
@@ -85,7 +85,7 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
         }
     }
 
-    private fun fetchEventsList(adapter: MyAdapter){
+    private fun fetchEventsList(rec: RecyclerView){
         GlobalScope.launch(Dispatchers.Main) {
 
             val db = DatabaseAndroid.getDatabase(requireContext())
@@ -98,9 +98,9 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
             else{
                 list.removeAt(0)
             }
-            adapter.mData = list
-            try{adapter.notifyDataSetChanged()} //Cannot call this method while RecyclerView is computing a layout or scrolling
-            catch (e:Exception){}               //this doesn't work
+            rec.adapter = MyAdapter(list)
+            //try{adapter.notifyDataSetChanged()} //Cannot call this method while RecyclerView is computing a layout or scrolling
+            //catch (e:Exception){}               //this doesn't work
         }
 
         //To do: get events from database, create list from today (or first event) to last event
