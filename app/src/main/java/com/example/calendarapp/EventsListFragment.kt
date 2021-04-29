@@ -1,6 +1,7 @@
 package com.example.calendarapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,10 @@ import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.calendarapp.databinding.FragmentEventsListBinding
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,13 +42,18 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
         with(binding) {
             //testo.text="hey"
 
-            fetchEventsList(myRecyclerView)
-            //myRecyclerView.adapter = MyAdapter(eventsList)
+            val placeholderList = mutableListOf(Event(0,"loading", "loading", "loading", "loading", "loading", "loading"))
+
+            val adapter = MyAdapter(placeholderList)
+            myRecyclerView.adapter = adapter
             myRecyclerView.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
 
-            buttset.setOnClickListener {
+            fetchEventsList(adapter)
 
-                val s = testo.text.toString()
+            buttset.setOnClickListener {
+                //myRecyclerView.adapter = MyAdapter(listOf(Event(1,"titolo1", "ciao1", "dateFo", "er", "df", "sdfd")))
+
+                /*val s = testo.text.toString()
                 try{val useless = dateFormat.parse(s)}
                 catch(e: ParseException){
                     Toast.makeText(requireContext(), "Invalid date",
@@ -58,7 +66,7 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
                     val dao = db.eventDao()
 
                     dao.insert(Event(2,"pulsanteClick", "forse", s, "12-12-2021", "13:56", "14:30"))
-                }
+                }*/
 
 
             }
@@ -77,12 +85,22 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
         }
     }
 
-    private fun fetchEventsList(recyclerView: RecyclerView){
-        GlobalScope.launch {
+    private fun fetchEventsList(adapter: MyAdapter){
+        GlobalScope.launch(Dispatchers.Main) {
 
             val db = DatabaseAndroid.getDatabase(requireContext())
             val dao = db.eventDao()
-            recyclerView.adapter = MyAdapter(dao.getAll())
+
+            val list = dao.getAll()
+            if(list.isEmpty()){
+                dao.insert(Event(0,"firstElement", "invisible", "0", "0", "0", "0"))
+            }
+            else{
+                list.removeAt(0)
+            }
+            adapter.mData = list
+            try{adapter.notifyDataSetChanged()} //Cannot call this method while RecyclerView is computing a layout or scrolling
+            catch (e:Exception){}               //this doesn't work
         }
 
         //To do: get events from database, create list from today (or first event) to last event

@@ -119,7 +119,7 @@ class NewEventFragment : Fragment(R.layout.fragment_new_event){
                     val db = DatabaseAndroid.getDatabase(requireContext())
                     val dao = db.eventDao()
 
-                    dao.insert(Event(1, title, note, dateFormat.format(dStart), dateFormat.format(dEnd),
+                    dao.insert(Event(dao.getMaxId() + 1, title, note, dateFormat.format(dStart), dateFormat.format(dEnd),
                                                              timeFormat.format(tStart), timeFormat.format(tEnd)))
                 }
 
