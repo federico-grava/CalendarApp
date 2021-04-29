@@ -22,7 +22,7 @@ class MyAdapter(var mData : MutableList<Event>, var fm : FragmentManager) : Recy
             recTitle.text = mData[position].title
             recDate.text = mData[position].startDate
             recTime.text = mData[position].startTime
-            recNote.text = (mData[position].note?: "").take(80)
+            recNote.text = (mData[position].note?: "").take(90)
 
             root.setOnClickListener {
                 val event = EventDetailsFragment(mData[position].title,
