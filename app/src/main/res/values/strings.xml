@@ -16,4 +16,5 @@
     <string name="note">note</string>
     <string name="date">date</string>
     <string name="time">time</string>
+    <string name="fab">Floating action button</string>
 </resources>
