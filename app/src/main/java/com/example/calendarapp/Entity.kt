@@ -25,7 +25,7 @@ data class Event(
         @ColumnInfo(name = "endTime") val endTime: String
 ) : Comparable<Event>{
     override fun compareTo(other: Event) : Int{
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy")
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
         val timeFormat = SimpleDateFormat("kk:mm")
 
         if(dateFormat.parse(this.startDate) < dateFormat.parse(other.startDate))

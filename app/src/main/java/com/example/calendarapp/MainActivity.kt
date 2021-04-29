@@ -7,7 +7,7 @@ import com.example.calendarapp.databinding.ActivityMainBinding
 import java.text.SimpleDateFormat
 
 class MainActivity : AppCompatActivity() {
-    private var dateFormat = SimpleDateFormat("dd-MM-yyyy")
+    private var dateFormat = SimpleDateFormat("dd/MM/yyyy")
     private var timeFormat = SimpleDateFormat("kk:mm")
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EventsListFragment : Fragment(R.layout.fragment_events_list){
-    private var dateFormat = SimpleDateFormat("dd-MM-yyyy")
+    private var dateFormat = SimpleDateFormat("dd/MM/yyyy")
     private var timeFormat = SimpleDateFormat("kk:mm")
 
     override fun onCreateView(

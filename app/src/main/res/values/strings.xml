@@ -5,7 +5,7 @@
     <string name="add_note_optional">Add note (optional)</string>
     <string name="note_hint">Note</string>
     <string name="add_start_date">Add start date</string>
-    <string name="dd_mm_yyyy">dd-MM-yyyy</string>
+    <string name="dd_mm_yyyy">dd/MM/yyyy</string>
     <string name="add_start_time">Add start time</string>
     <string name="hh_mm">hh:mm</string>
     <string name="add_end_date">Add end date</string>
