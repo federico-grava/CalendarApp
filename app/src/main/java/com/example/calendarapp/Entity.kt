@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
+import java.text.SimpleDateFormat
 import java.util.*
 
 /*@Entity
@@ -22,4 +23,20 @@ data class Event(
         @ColumnInfo(name = "endDate") val endDate: String,
         @ColumnInfo(name = "startTime") val startTime: String,
         @ColumnInfo(name = "endTime") val endTime: String
-)
+) : Comparable<Event>{
+    override fun compareTo(other: Event) : Int{
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy")
+        val timeFormat = SimpleDateFormat("kk:mm")
+
+        if(dateFormat.parse(this.startDate) < dateFormat.parse(other.startDate))
+            return -1
+        if(dateFormat.parse(this.startDate) > dateFormat.parse(other.startDate))
+            return 1
+        if(timeFormat.parse(this.startTime) < timeFormat.parse(other.startTime))
+            return -1
+        if(timeFormat.parse(this.startTime) > timeFormat.parse(other.startTime))
+            return 1
+
+        return 0
+    }
+}

@@ -9,11 +9,11 @@ import java.text.SimpleDateFormat
 
 class MyAdapter(var mData : MutableList<Event>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
-    init {
+    /*init {
         if(mData.isEmpty()){
             mData.add(0, Event(0,"empty", "empty", "0", "0", "0", "0"))
         }
-    }
+    }*/
 
     class MyViewHolder(val binding : RecyclerElementBinding) : RecyclerView.ViewHolder(binding.root)
 

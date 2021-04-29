@@ -97,6 +97,7 @@ class EventsListFragment : Fragment(R.layout.fragment_events_list){
             }
             else{
                 list.removeAt(0)
+                list.sort()
             }
             rec.adapter = MyAdapter(list)
             //try{adapter.notifyDataSetChanged()} //Cannot call this method while RecyclerView is computing a layout or scrolling
